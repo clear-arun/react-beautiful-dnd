@@ -14,6 +14,7 @@ export const interactiveTagNames: TagNameMap = {
   optgroup: true,
   video: true,
   audio: true,
+  canvas: true,
 };
 
 function isAnInteractiveElement(parent: Element, current: ?Element) {
