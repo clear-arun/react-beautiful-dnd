@@ -5647,6 +5647,16 @@ var supportedEventName = function () {
 var primaryButton = 0;
 var sloppyClickThreshold = 5;
 
+function getWindowOrShadowRoot() {
+  if (!window.DND_DOC_WINDOW_EL) {
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
+    window.DND_DOC_WINDOW_EL = windowEl;
+  }
+
+  return window.DND_DOC_WINDOW_EL;
+}
+
 function isSloppyClickThresholdExceeded(original, current) {
   return Math.abs(current.x - original.x) >= sloppyClickThreshold || Math.abs(current.y - original.y) >= sloppyClickThreshold;
 }
@@ -5853,7 +5863,7 @@ function useMouseSensor(api) {
       passive: false,
       capture: true
     };
-    unbindEventsRef.current = bindEvents(window, [preventForcePressBinding, startCaptureBinding], options);
+    unbindEventsRef.current = bindEvents(getWindowOrShadowRoot(), [preventForcePressBinding, startCaptureBinding], options);
   }, [preventForcePressBinding, startCaptureBinding]);
   var stop = useMemoOne.useCallback(function () {
     var current = phaseRef.current;
@@ -5895,7 +5905,7 @@ function useMouseSensor(api) {
         phaseRef.current = phase;
       }
     });
-    unbindEventsRef.current = bindEvents(window, bindings, options);
+    unbindEventsRef.current = bindEvents(getWindowOrShadowRoot(), bindings, options);
   }, [cancel, stop]);
   var startPendingDrag = useMemoOne.useCallback(function startPendingDrag(actions, point) {
     !(phaseRef.current.type === 'IDLE') ? process.env.NODE_ENV !== "production" ? invariant(false, 'Expected to move from IDLE to PENDING drag') : invariant(false) : void 0;
@@ -6004,6 +6014,16 @@ function getDraggingBindings(actions, stop) {
   }];
 }
 
+function getWindowOrShadowRoot$1() {
+  if (!window.DND_DOC_WINDOW_EL) {
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
+    window.DND_DOC_WINDOW_EL = windowEl;
+  }
+
+  return window.DND_DOC_WINDOW_EL;
+}
+
 function useKeyboardSensor(api) {
   var unbindEventsRef = React.useRef(noop$1);
   var startCaptureBinding = useMemoOne.useMemo(function () {
@@ -6044,7 +6064,7 @@ function useKeyboardSensor(api) {
           listenForCapture();
         }
 
-        unbindEventsRef.current = bindEvents(window, getDraggingBindings(actions, stop), {
+        unbindEventsRef.current = bindEvents(getWindowOrShadowRoot$1(), getDraggingBindings(actions, stop), {
           capture: true,
           passive: false
         });
@@ -6056,7 +6076,7 @@ function useKeyboardSensor(api) {
       passive: false,
       capture: true
     };
-    unbindEventsRef.current = bindEvents(window, [startCaptureBinding], options);
+    unbindEventsRef.current = bindEvents(getWindowOrShadowRoot$1(), [startCaptureBinding], options);
   }, [startCaptureBinding]);
   useIsomorphicLayoutEffect(function mount() {
     listenForCapture();
@@ -6206,6 +6226,16 @@ function getHandleBindings(_ref2) {
   }];
 }
 
+function getWindowOrShadowRoot$2() {
+  if (!window.DND_DOC_WINDOW_EL) {
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
+    window.DND_DOC_WINDOW_EL = windowEl;
+  }
+
+  return window.DND_DOC_WINDOW_EL;
+}
+
 function useMouseSensor$1(api) {
   var phaseRef = React.useRef(idle$2);
   var unbindEventsRef = React.useRef(noop);
@@ -6254,7 +6284,7 @@ function useMouseSensor$1(api) {
       capture: true,
       passive: false
     };
-    unbindEventsRef.current = bindEvents(window, [startCaptureBinding], options);
+    unbindEventsRef.current = bindEvents(getWindowOrShadowRoot$2(), [startCaptureBinding], options);
   }, [startCaptureBinding]);
   var stop = useMemoOne.useCallback(function () {
     var current = phaseRef.current;
@@ -6295,7 +6325,7 @@ function useMouseSensor$1(api) {
       completed: stop,
       getPhase: getPhase
     };
-    var unbindTarget = bindEvents(window, getHandleBindings(args), options);
+    var unbindTarget = bindEvents(getWindowOrShadowRoot$2(), getHandleBindings(args), options);
     var unbindWindow = bindEvents(window, getWindowBindings(args), options);
 
     unbindEventsRef.current = function unbindAll() {
@@ -6337,7 +6367,7 @@ function useMouseSensor$1(api) {
     };
   }, [getPhase, listenForCapture, setPhase]);
   useIsomorphicLayoutEffect(function webkitHack() {
-    var unbind = bindEvents(window, [{
+    var unbind = bindEvents(getWindowOrShadowRoot$2(), [{
       eventName: 'touchmove',
       fn: function fn() {},
       options: {
@@ -6618,6 +6648,16 @@ function tryStart(_ref3) {
     }
   }
 
+  function getWindowOrShadowRoot() {
+    if (!window.DND_DOC_WINDOW_EL) {
+      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+      var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
+      window.DND_DOC_WINDOW_EL = windowEl;
+    }
+
+    return window.DND_DOC_WINDOW_EL;
+  }
+
   var tryDispatchWhenDragging = tryDispatch.bind(null, 'DRAGGING');
 
   function lift$1(args) {
@@ -6644,7 +6684,7 @@ function tryStart(_ref3) {
       args.cleanup();
 
       if (options.shouldBlockNextClick) {
-        var unbind = bindEvents(window, [{
+        var unbind = bindEvents(getWindowOrShadowRoot(), [{
           eventName: 'click',
           fn: preventDefault,
           options: {
@@ -8521,10 +8561,14 @@ var mapDispatchToProps$1 = {
 };
 
 function getBody() {
-  var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-  var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
-  !body ? process.env.NODE_ENV !== "production" ? invariant(false, 'document.body is not ready') : invariant(false) : void 0;
-  return body;
+  if (!window.DND_DOC_BODY_EL) {
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
+    window.DND_DOC_BODY_EL = body;
+  }
+
+  !window.DND_DOC_BODY_EL ? process.env.NODE_ENV !== "production" ? invariant(false, 'document.body is not ready') : invariant(false) : void 0;
+  return window.DND_DOC_BODY_EL;
 }
 
 var defaultProps = {

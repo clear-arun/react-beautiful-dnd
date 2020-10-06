@@ -8608,6 +8608,16 @@
   var primaryButton = 0;
   var sloppyClickThreshold = 5;
 
+  function getWindowOrShadowRoot() {
+    if (!window.DND_DOC_WINDOW_EL) {
+      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+      var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
+      window.DND_DOC_WINDOW_EL = windowEl;
+    }
+
+    return window.DND_DOC_WINDOW_EL;
+  }
+
   function isSloppyClickThresholdExceeded(original, current) {
     return Math.abs(current.x - original.x) >= sloppyClickThreshold || Math.abs(current.y - original.y) >= sloppyClickThreshold;
   }
@@ -8814,7 +8824,7 @@
         passive: false,
         capture: true
       };
-      unbindEventsRef.current = bindEvents(window, [preventForcePressBinding, startCaptureBinding], options);
+      unbindEventsRef.current = bindEvents(getWindowOrShadowRoot(), [preventForcePressBinding, startCaptureBinding], options);
     }, [preventForcePressBinding, startCaptureBinding]);
     var stop = useCallback(function () {
       var current = phaseRef.current;
@@ -8856,7 +8866,7 @@
           phaseRef.current = phase;
         }
       });
-      unbindEventsRef.current = bindEvents(window, bindings, options);
+      unbindEventsRef.current = bindEvents(getWindowOrShadowRoot(), bindings, options);
     }, [cancel, stop]);
     var startPendingDrag = useCallback(function startPendingDrag(actions, point) {
       !(phaseRef.current.type === 'IDLE') ?  invariant(false, 'Expected to move from IDLE to PENDING drag')  : void 0;
@@ -8965,6 +8975,16 @@
     }];
   }
 
+  function getWindowOrShadowRoot$1() {
+    if (!window.DND_DOC_WINDOW_EL) {
+      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+      var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
+      window.DND_DOC_WINDOW_EL = windowEl;
+    }
+
+    return window.DND_DOC_WINDOW_EL;
+  }
+
   function useKeyboardSensor(api) {
     var unbindEventsRef = React.useRef(noop$1);
     var startCaptureBinding = useMemo(function () {
@@ -9005,7 +9025,7 @@
             listenForCapture();
           }
 
-          unbindEventsRef.current = bindEvents(window, getDraggingBindings(actions, stop), {
+          unbindEventsRef.current = bindEvents(getWindowOrShadowRoot$1(), getDraggingBindings(actions, stop), {
             capture: true,
             passive: false
           });
@@ -9017,7 +9037,7 @@
         passive: false,
         capture: true
       };
-      unbindEventsRef.current = bindEvents(window, [startCaptureBinding], options);
+      unbindEventsRef.current = bindEvents(getWindowOrShadowRoot$1(), [startCaptureBinding], options);
     }, [startCaptureBinding]);
     useIsomorphicLayoutEffect$1(function mount() {
       listenForCapture();
@@ -9167,6 +9187,16 @@
     }];
   }
 
+  function getWindowOrShadowRoot$2() {
+    if (!window.DND_DOC_WINDOW_EL) {
+      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+      var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
+      window.DND_DOC_WINDOW_EL = windowEl;
+    }
+
+    return window.DND_DOC_WINDOW_EL;
+  }
+
   function useMouseSensor$1(api) {
     var phaseRef = React.useRef(idle$2);
     var unbindEventsRef = React.useRef(noop);
@@ -9215,7 +9245,7 @@
         capture: true,
         passive: false
       };
-      unbindEventsRef.current = bindEvents(window, [startCaptureBinding], options);
+      unbindEventsRef.current = bindEvents(getWindowOrShadowRoot$2(), [startCaptureBinding], options);
     }, [startCaptureBinding]);
     var stop = useCallback(function () {
       var current = phaseRef.current;
@@ -9256,7 +9286,7 @@
         completed: stop,
         getPhase: getPhase
       };
-      var unbindTarget = bindEvents(window, getHandleBindings(args), options);
+      var unbindTarget = bindEvents(getWindowOrShadowRoot$2(), getHandleBindings(args), options);
       var unbindWindow = bindEvents(window, getWindowBindings(args), options);
 
       unbindEventsRef.current = function unbindAll() {
@@ -9298,7 +9328,7 @@
       };
     }, [getPhase, listenForCapture, setPhase]);
     useIsomorphicLayoutEffect$1(function webkitHack() {
-      var unbind = bindEvents(window, [{
+      var unbind = bindEvents(getWindowOrShadowRoot$2(), [{
         eventName: 'touchmove',
         fn: function fn() {},
         options: {
@@ -9579,6 +9609,16 @@
       }
     }
 
+    function getWindowOrShadowRoot() {
+      if (!window.DND_DOC_WINDOW_EL) {
+        var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+        var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
+        window.DND_DOC_WINDOW_EL = windowEl;
+      }
+
+      return window.DND_DOC_WINDOW_EL;
+    }
+
     var tryDispatchWhenDragging = tryDispatch.bind(null, 'DRAGGING');
 
     function lift$1(args) {
@@ -9605,7 +9645,7 @@
         args.cleanup();
 
         if (options.shouldBlockNextClick) {
-          var unbind = bindEvents(window, [{
+          var unbind = bindEvents(getWindowOrShadowRoot(), [{
             eventName: 'click',
             fn: preventDefault,
             options: {
@@ -11479,10 +11519,14 @@
   };
 
   function getBody() {
-    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-    var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
-    !body ?  invariant(false, 'document.body is not ready')  : void 0;
-    return body;
+    if (!window.DND_DOC_BODY_EL) {
+      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+      var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
+      window.DND_DOC_BODY_EL = body;
+    }
+
+    !window.DND_DOC_BODY_EL ?  invariant(false, 'document.body is not ready')  : void 0;
+    return window.DND_DOC_BODY_EL;
   }
 
   var defaultProps = {
