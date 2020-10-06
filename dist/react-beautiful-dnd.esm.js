@@ -6343,7 +6343,8 @@ var interactiveTagNames = {
   option: true,
   optgroup: true,
   video: true,
-  audio: true
+  audio: true,
+  canvas: true
 };
 
 function isAnInteractiveElement(parent, current) {
