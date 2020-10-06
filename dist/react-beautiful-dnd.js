@@ -8213,7 +8213,8 @@
   var StoreContext = React__default.createContext(null);
 
   var getBodyElement = (function () {
-    var body = document.body;
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
     !body ?  invariant(false, 'Cannot find document.body')  : void 0;
     return body;
   });
@@ -11377,8 +11378,10 @@
   };
 
   function getBody() {
-    !document.body ?  invariant(false, 'document.body is not ready')  : void 0;
-    return document.body;
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
+    !body ?  invariant(false, 'document.body is not ready')  : void 0;
+    return body;
   }
 
   var defaultProps = {

@@ -5327,7 +5327,8 @@ function useRegistry() {
 var StoreContext = React.createContext(null);
 
 var getBodyElement = (function () {
-  var body = document.body;
+  var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+  var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
   !body ? process.env.NODE_ENV !== "production" ? invariant(false, 'Cannot find document.body') : invariant(false) : void 0;
   return body;
 });
@@ -8494,8 +8495,10 @@ var mapDispatchToProps$1 = {
 };
 
 function getBody() {
-  !document.body ? process.env.NODE_ENV !== "production" ? invariant(false, 'document.body is not ready') : invariant(false) : void 0;
-  return document.body;
+  var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+  var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
+  !body ? process.env.NODE_ENV !== "production" ? invariant(false, 'document.body is not ready') : invariant(false) : void 0;
+  return body;
 }
 
 var defaultProps = {
