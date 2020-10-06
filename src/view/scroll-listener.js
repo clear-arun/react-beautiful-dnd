@@ -20,6 +20,12 @@ type Result = {|
 |};
 
 function getWindowScrollBinding(update: () => void): EventBinding {
+  const domNodeWithShadow: Element = document.querySelector(
+    '[data-has-shadow-root="true"]',
+  );
+  const documentElement: ?Document | ?DocumentFragment = domNodeWithShadow
+    ? domNodeWithShadow.shadowRoot
+    : document;
   return {
     eventName: 'scroll',
     // ## Passive: true
@@ -34,7 +40,7 @@ function getWindowScrollBinding(update: () => void): EventBinding {
       // All scrollable events still bubble up and are caught by this handler in ie11.
       // On a window scroll the event.target should be the window or the document.
       // If this is not the case then it is not a 'window' scroll event and can be ignored
-      if (event.target !== window && event.target !== window.document) {
+      if (event.target !== window && event.target !== documentElement) {
         return;
       }
 
