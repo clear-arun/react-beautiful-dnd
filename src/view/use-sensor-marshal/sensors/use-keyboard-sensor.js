@@ -138,6 +138,19 @@ function getDraggingBindings(
   ];
 }
 
+function getWindowOrShadowRoot(): Window | DocumentFragment {
+  if (!window.DND_DOC_WINDOW_EL) {
+    const domNodeWithShadow: Element = document.querySelector(
+      '[data-has-shadow-root="true"]',
+    );
+    const windowEl: ?Window | ?DocumentFragment = domNodeWithShadow
+      ? domNodeWithShadow.shadowRoot
+      : window;
+    window.DND_DOC_WINDOW_EL = windowEl;
+  }
+  return window.DND_DOC_WINDOW_EL;
+}
+
 export default function useKeyboardSensor(api: SensorAPI) {
   const unbindEventsRef = useRef<() => void>(noop);
 
@@ -202,7 +215,7 @@ export default function useKeyboardSensor(api: SensorAPI) {
 
         // bind dragging listeners
         unbindEventsRef.current = bindEvents(
-          window,
+          getWindowOrShadowRoot(),
           getDraggingBindings(actions, stop),
           { capture: true, passive: false },
         );
@@ -221,7 +234,7 @@ export default function useKeyboardSensor(api: SensorAPI) {
       };
 
       unbindEventsRef.current = bindEvents(
-        window,
+        getWindowOrShadowRoot(),
         [startCaptureBinding],
         options,
       );

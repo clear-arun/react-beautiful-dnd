@@ -207,6 +207,19 @@ function tryStart({
     }
   }
 
+  function getWindowOrShadowRoot(): Window | DocumentFragment {
+    if (!window.DND_DOC_WINDOW_EL) {
+      const domNodeWithShadow: Element = document.querySelector(
+        '[data-has-shadow-root="true"]',
+      );
+      const windowEl: ?Window | ?DocumentFragment = domNodeWithShadow
+        ? domNodeWithShadow.shadowRoot
+        : window;
+      window.DND_DOC_WINDOW_EL = windowEl;
+    }
+    return window.DND_DOC_WINDOW_EL;
+  }
+
   const tryDispatchWhenDragging = tryDispatch.bind(null, 'DRAGGING');
 
   type LiftArgs = {|
@@ -239,7 +252,7 @@ function tryStart({
 
       // block next click if requested
       if (options.shouldBlockNextClick) {
-        const unbind = bindEvents(window, [
+        const unbind = bindEvents(getWindowOrShadowRoot(), [
           {
             eventName: 'click',
             fn: preventDefault,

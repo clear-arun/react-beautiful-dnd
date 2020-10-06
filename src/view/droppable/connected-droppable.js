@@ -228,15 +228,18 @@ const mapDispatchToProps: DispatchProps = {
 };
 
 function getBody(): HTMLElement {
-  const domNodeWithShadow: Element = document.querySelector(
-    '[data-has-shadow-root="true"]',
-  );
-  const body: ?HTMLBodyElement | ?DocumentFragment = domNodeWithShadow
-    ? domNodeWithShadow.shadowRoot
-    : document.body;
+  if (!window.DND_DOC_BODY_EL) {
+    const domNodeWithShadow: Element = document.querySelector(
+      '[data-has-shadow-root="true"]',
+    );
+    const body: ?HTMLBodyElement | ?DocumentFragment = domNodeWithShadow
+      ? domNodeWithShadow.shadowRoot
+      : document.body;
+    window.DND_DOC_BODY_EL = body;
+  }
 
-  invariant(body, 'document.body is not ready');
-  return body;
+  invariant(window.DND_DOC_BODY_EL, 'document.body is not ready');
+  return window.DND_DOC_BODY_EL;
 }
 
 const defaultProps = ({
