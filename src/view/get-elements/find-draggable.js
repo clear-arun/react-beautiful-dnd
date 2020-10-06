@@ -11,7 +11,13 @@ export default function findDraggable(
 ): ?HTMLElement {
   // cannot create a selector with the draggable id as it might not be a valid attribute selector
   const selector: string = `[${attributes.draggable.contextId}="${contextId}"]`;
-  const possible: Element[] = toArray(document.querySelectorAll(selector));
+  const domNodeWithShadow: Element = document.querySelector(
+    '[data-has-shadow-root="true"]',
+  );
+  const baseDocument: ?Document | ?DocumentFragment = domNodeWithShadow
+    ? domNodeWithShadow.shadowRoot
+    : document;
+  const possible: Element[] = toArray(baseDocument.querySelectorAll(selector));
 
   const draggable: ?Element = find(possible, (el: Element): boolean => {
     return el.getAttribute(attributes.draggable.id) === draggableId;

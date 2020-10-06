@@ -10,7 +10,12 @@ import { prefix } from '../data-attributes';
 import useLayoutEffect from '../use-isomorphic-layout-effect';
 
 const getHead = (): HTMLHeadElement => {
-  const head: ?HTMLHeadElement = document.querySelector('head');
+  const domNodeWithShadow: Element = document.querySelector(
+    '[data-has-shadow-root="true"]',
+  );
+  const head: ?HTMLHeadElement | ?DocumentFragment = domNodeWithShadow
+    ? domNodeWithShadow.shadowRoot
+    : document.querySelector('head');
   invariant(head, 'Cannot find the head to append a style to');
   return head;
 };
