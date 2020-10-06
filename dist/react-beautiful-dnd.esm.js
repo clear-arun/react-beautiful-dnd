@@ -28,10 +28,6 @@ var isDisabledFlag = '__react-beautiful-dnd-disable-dev-warnings';
 function log(type, message) {
   var _console;
 
-  if (isProduction) {
-    return;
-  }
-
   if (typeof window !== 'undefined' && window[isDisabledFlag]) {
     return;
   }
