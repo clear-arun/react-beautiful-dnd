@@ -10,15 +10,19 @@ export default function findDragHandle(
   draggableId: DraggableId,
 ): ?HTMLElement {
   // cannot create a selector with the draggable id as it might not be a valid attribute selector
+  if (!window.DND_DOC_DOCUMENT_EL) {
+    const domNodeWithShadow: Element = document.querySelector(
+      '[data-has-shadow-root="true"]',
+    );
+    const baseDocument: ?Document | ?DocumentFragment = domNodeWithShadow
+      ? domNodeWithShadow.shadowRoot
+      : document;
+    window.DND_DOC_DOCUMENT_EL = baseDocument;
+  }
   const selector: string = `[${dragHandleAttr.contextId}="${contextId}"]`;
-  const domNodeWithShadow: Element = document.querySelector(
-    '[data-has-shadow-root="true"]',
+  const possible: Element[] = toArray(
+    window.DND_DOC_DOCUMENT_EL.querySelectorAll(selector),
   );
-  const baseDocument: ?Document | ?DocumentFragment = domNodeWithShadow
-    ? domNodeWithShadow.shadowRoot
-    : document;
-  const possible: Element[] = toArray(baseDocument.querySelectorAll(selector));
-
   if (!possible.length) {
     warning(`Unable to find any drag handles in the context "${contextId}"`);
     return null;
