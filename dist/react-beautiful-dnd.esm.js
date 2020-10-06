@@ -5107,8 +5107,9 @@ function useFocusMarshal(contextId) {
   }, []);
   var tryGiveFocus = useCallback(function tryGiveFocus(tryGiveFocusTo) {
     var handle = findDragHandle(contextId, tryGiveFocusTo);
+    var currentActiveElement = document.activeElement && document.activeElement.shadowRoot ? document.activeElement.shadowRoot.activeElement : document.activeElement;
 
-    if (handle && handle !== document.activeElement) {
+    if (handle && handle !== currentActiveElement) {
       handle.focus();
     }
   }, [contextId]);
