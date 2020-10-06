@@ -3314,8 +3314,12 @@ var getWindowScroll = (function () {
 });
 
 function getWindowScrollBinding(update) {
-  var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-  var documentElement = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
+  if (!window.DND_DOC_DOCUMENT_EL) {
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var documentElement = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
+    window.DND_DOC_DOCUMENT_EL = documentElement;
+  }
+
   return {
     eventName: 'scroll',
     options: {
@@ -3323,7 +3327,7 @@ function getWindowScrollBinding(update) {
       capture: false
     },
     fn: function fn(event) {
-      if (event.target !== window && event.target !== documentElement) {
+      if (event.target !== window && event.target !== window.DND_DOC_DOCUMENT_EL) {
         return;
       }
 
@@ -4966,10 +4970,14 @@ var getStyles$1 = (function (contextId) {
 var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? useLayoutEffect : useEffect;
 
 var getHead = function getHead() {
-  var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-  var head = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.querySelector('head');
-  !head ? process.env.NODE_ENV !== "production" ? invariant(false, 'Cannot find the head to append a style to') : invariant(false) : void 0;
-  return head;
+  if (!window.DND_DOC_HEAD_EL) {
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var head = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.querySelector('head');
+    window.DND_DOC_HEAD_EL = head;
+  }
+
+  !window.DND_DOC_HEAD_EL ? process.env.NODE_ENV !== "production" ? invariant(false, 'Cannot find the head to append a style to') : invariant(false) : void 0;
+  return window.DND_DOC_HEAD_EL;
 };
 
 var createStyleEl = function createStyleEl(nonce) {
@@ -5060,10 +5068,14 @@ function isHtmlElement(el) {
 }
 
 function findDragHandle(contextId, draggableId) {
+  if (!window.DND_DOC_DOCUMENT_EL) {
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var baseDocument = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
+    window.DND_DOC_DOCUMENT_EL = baseDocument;
+  }
+
   var selector = "[" + dragHandle.contextId + "=\"" + contextId + "\"]";
-  var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-  var baseDocument = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
-  var possible = toArray(baseDocument.querySelectorAll(selector));
+  var possible = toArray(window.DND_DOC_DOCUMENT_EL.querySelectorAll(selector));
 
   if (!possible.length) {
     process.env.NODE_ENV !== "production" ? warning("Unable to find any drag handles in the context \"" + contextId + "\"") : void 0;
@@ -5330,10 +5342,14 @@ function useRegistry() {
 var StoreContext = React.createContext(null);
 
 var getBodyElement = (function () {
-  var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-  var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
-  !body ? process.env.NODE_ENV !== "production" ? invariant(false, 'Cannot find document.body') : invariant(false) : void 0;
-  return body;
+  if (!window.DND_DOC_BODY_EL) {
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
+    window.DND_DOC_BODY_EL = body;
+  }
+
+  !window.DND_DOC_BODY_EL ? process.env.NODE_ENV !== "production" ? invariant(false, 'Cannot find document.body') : invariant(false) : void 0;
+  return window.DND_DOC_BODY_EL;
 });
 
 var visuallyHidden = {
@@ -6465,10 +6481,14 @@ function tryGetClosestDraggableIdFromEvent(contextId, event) {
 }
 
 function findDraggable(contextId, draggableId) {
+  if (!window.DND_DOC_DOCUMENT_EL) {
+    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+    var baseDocument = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
+    window.DND_DOC_DOCUMENT_EL = baseDocument;
+  }
+
   var selector = "[" + draggable.contextId + "=\"" + contextId + "\"]";
-  var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-  var baseDocument = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
-  var possible = toArray(baseDocument.querySelectorAll(selector));
+  var possible = toArray(window.DND_DOC_DOCUMENT_EL.querySelectorAll(selector));
   var draggable$1 = find(possible, function (el) {
     return el.getAttribute(draggable.id) === draggableId;
   });
