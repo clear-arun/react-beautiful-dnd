@@ -10,14 +10,21 @@ import { prefix } from '../data-attributes';
 import useLayoutEffect from '../use-isomorphic-layout-effect';
 
 const getHead = (): HTMLHeadElement => {
-  const domNodeWithShadow: Element = document.querySelector(
-    '[data-has-shadow-root="true"]',
+  if (!window.DND_DOC_HEAD_EL) {
+    const domNodeWithShadow: Element = document.querySelector(
+      '[data-has-shadow-root="true"]',
+    );
+    const head: ?HTMLHeadElement | ?DocumentFragment = domNodeWithShadow
+      ? domNodeWithShadow.shadowRoot
+      : document.querySelector('head');
+    window.DND_DOC_HEAD_EL = head;
+  }
+
+  invariant(
+    window.DND_DOC_HEAD_EL,
+    'Cannot find the head to append a style to',
   );
-  const head: ?HTMLHeadElement | ?DocumentFragment = domNodeWithShadow
-    ? domNodeWithShadow.shadowRoot
-    : document.querySelector('head');
-  invariant(head, 'Cannot find the head to append a style to');
-  return head;
+  return window.DND_DOC_HEAD_EL;
 };
 
 const createStyleEl = (nonce?: string): HTMLStyleElement => {
