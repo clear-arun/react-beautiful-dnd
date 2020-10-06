@@ -61,7 +61,7 @@
   }
 
   function getOptions(shared, fromBinding) {
-    return _extends({}, shared, fromBinding);
+    return _extends({}, shared, {}, fromBinding);
   }
 
   function bindEvents(el, bindings, sharedOptions) {
@@ -811,9 +811,52 @@
     warning$1('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
   }
 
+  function unwrapExports (x) {
+  	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+  }
+
   function createCommonjsModule(fn, module) {
   	return module = { exports: {} }, fn(module, module.exports), module.exports;
   }
+
+  var reactIs_production_min = createCommonjsModule(function (module, exports) {
+  Object.defineProperty(exports,"__esModule",{value:!0});
+  var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?Symbol.for("react.suspense_list"):
+  60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.fundamental"):60117,w=b?Symbol.for("react.responder"):60118,x=b?Symbol.for("react.scope"):60119;function y(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case t:case r:case h:return a;default:return u}}case d:return u}}}function z(a){return y(a)===m}
+  exports.typeOf=y;exports.AsyncMode=l;exports.ConcurrentMode=m;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=n;exports.Fragment=e;exports.Lazy=t;exports.Memo=r;exports.Portal=d;exports.Profiler=g;exports.StrictMode=f;exports.Suspense=p;
+  exports.isValidElementType=function(a){return "string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===v||a.$$typeof===w||a.$$typeof===x)};exports.isAsyncMode=function(a){return z(a)||y(a)===l};exports.isConcurrentMode=z;exports.isContextConsumer=function(a){return y(a)===k};exports.isContextProvider=function(a){return y(a)===h};
+  exports.isElement=function(a){return "object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return y(a)===n};exports.isFragment=function(a){return y(a)===e};exports.isLazy=function(a){return y(a)===t};exports.isMemo=function(a){return y(a)===r};exports.isPortal=function(a){return y(a)===d};exports.isProfiler=function(a){return y(a)===g};exports.isStrictMode=function(a){return y(a)===f};exports.isSuspense=function(a){return y(a)===p};
+  });
+
+  unwrapExports(reactIs_production_min);
+  var reactIs_production_min_1 = reactIs_production_min.typeOf;
+  var reactIs_production_min_2 = reactIs_production_min.AsyncMode;
+  var reactIs_production_min_3 = reactIs_production_min.ConcurrentMode;
+  var reactIs_production_min_4 = reactIs_production_min.ContextConsumer;
+  var reactIs_production_min_5 = reactIs_production_min.ContextProvider;
+  var reactIs_production_min_6 = reactIs_production_min.Element;
+  var reactIs_production_min_7 = reactIs_production_min.ForwardRef;
+  var reactIs_production_min_8 = reactIs_production_min.Fragment;
+  var reactIs_production_min_9 = reactIs_production_min.Lazy;
+  var reactIs_production_min_10 = reactIs_production_min.Memo;
+  var reactIs_production_min_11 = reactIs_production_min.Portal;
+  var reactIs_production_min_12 = reactIs_production_min.Profiler;
+  var reactIs_production_min_13 = reactIs_production_min.StrictMode;
+  var reactIs_production_min_14 = reactIs_production_min.Suspense;
+  var reactIs_production_min_15 = reactIs_production_min.isValidElementType;
+  var reactIs_production_min_16 = reactIs_production_min.isAsyncMode;
+  var reactIs_production_min_17 = reactIs_production_min.isConcurrentMode;
+  var reactIs_production_min_18 = reactIs_production_min.isContextConsumer;
+  var reactIs_production_min_19 = reactIs_production_min.isContextProvider;
+  var reactIs_production_min_20 = reactIs_production_min.isElement;
+  var reactIs_production_min_21 = reactIs_production_min.isForwardRef;
+  var reactIs_production_min_22 = reactIs_production_min.isFragment;
+  var reactIs_production_min_23 = reactIs_production_min.isLazy;
+  var reactIs_production_min_24 = reactIs_production_min.isMemo;
+  var reactIs_production_min_25 = reactIs_production_min.isPortal;
+  var reactIs_production_min_26 = reactIs_production_min.isProfiler;
+  var reactIs_production_min_27 = reactIs_production_min.isStrictMode;
+  var reactIs_production_min_28 = reactIs_production_min.isSuspense;
 
   var reactIs_development = createCommonjsModule(function (module, exports) {
 
@@ -821,6 +864,8 @@
 
   {
     (function() {
+
+  Object.defineProperty(exports, '__esModule', { value: true });
 
   // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
   // nor polyfill, then a plain number is used for performance.
@@ -841,15 +886,69 @@
   var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
   var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
   var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-  var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
   var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
   var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
   var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
 
   function isValidElementType(type) {
     return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-    type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+    type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE);
   }
+
+  /**
+   * Forked from fbjs/warning:
+   * https://github.com/facebook/fbjs/blob/e66ba20ad5be433eb54423f2b097d829324d9de6/packages/fbjs/src/__forks__/warning.js
+   *
+   * Only change is we use console.warn instead of console.error,
+   * and do nothing when 'console' is not supported.
+   * This really simplifies the code.
+   * ---
+   * Similar to invariant but only logs a warning if the condition is not met.
+   * This can be used to log issues in development environments in critical
+   * paths. Removing the logging code for production environments will keep the
+   * same logic and follow the same code paths.
+   */
+  var lowPriorityWarningWithoutStack = function () {};
+
+  {
+    var printWarning = function (format) {
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      var argIndex = 0;
+      var message = 'Warning: ' + format.replace(/%s/g, function () {
+        return args[argIndex++];
+      });
+
+      if (typeof console !== 'undefined') {
+        console.warn(message);
+      }
+
+      try {
+        // --- Welcome to debugging React ---
+        // This error was thrown as a convenience so that you can use this stack
+        // to find the callsite that caused this warning to fire.
+        throw new Error(message);
+      } catch (x) {}
+    };
+
+    lowPriorityWarningWithoutStack = function (condition, format) {
+      if (format === undefined) {
+        throw new Error('`lowPriorityWarningWithoutStack(condition, format, ...args)` requires a warning ' + 'message argument');
+      }
+
+      if (!condition) {
+        for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+          args[_key2 - 2] = arguments[_key2];
+        }
+
+        printWarning.apply(void 0, [format].concat(args));
+      }
+    };
+  }
+
+  var lowPriorityWarningWithoutStack$1 = lowPriorityWarningWithoutStack;
 
   function typeOf(object) {
     if (typeof object === 'object' && object !== null) {
@@ -911,9 +1010,8 @@
   function isAsyncMode(object) {
     {
       if (!hasWarnedAboutDeprecatedIsAsyncMode) {
-        hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
-
-        console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
+        hasWarnedAboutDeprecatedIsAsyncMode = true;
+        lowPriorityWarningWithoutStack$1(false, 'The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
       }
     }
 
@@ -956,6 +1054,7 @@
     return typeOf(object) === REACT_SUSPENSE_TYPE;
   }
 
+  exports.typeOf = typeOf;
   exports.AsyncMode = AsyncMode;
   exports.ConcurrentMode = ConcurrentMode;
   exports.ContextConsumer = ContextConsumer;
@@ -969,6 +1068,7 @@
   exports.Profiler = Profiler;
   exports.StrictMode = StrictMode;
   exports.Suspense = Suspense;
+  exports.isValidElementType = isValidElementType;
   exports.isAsyncMode = isAsyncMode;
   exports.isConcurrentMode = isConcurrentMode;
   exports.isContextConsumer = isContextConsumer;
@@ -982,39 +1082,39 @@
   exports.isProfiler = isProfiler;
   exports.isStrictMode = isStrictMode;
   exports.isSuspense = isSuspense;
-  exports.isValidElementType = isValidElementType;
-  exports.typeOf = typeOf;
     })();
   }
   });
-  var reactIs_development_1 = reactIs_development.AsyncMode;
-  var reactIs_development_2 = reactIs_development.ConcurrentMode;
-  var reactIs_development_3 = reactIs_development.ContextConsumer;
-  var reactIs_development_4 = reactIs_development.ContextProvider;
-  var reactIs_development_5 = reactIs_development.Element;
-  var reactIs_development_6 = reactIs_development.ForwardRef;
-  var reactIs_development_7 = reactIs_development.Fragment;
-  var reactIs_development_8 = reactIs_development.Lazy;
-  var reactIs_development_9 = reactIs_development.Memo;
-  var reactIs_development_10 = reactIs_development.Portal;
-  var reactIs_development_11 = reactIs_development.Profiler;
-  var reactIs_development_12 = reactIs_development.StrictMode;
-  var reactIs_development_13 = reactIs_development.Suspense;
-  var reactIs_development_14 = reactIs_development.isAsyncMode;
-  var reactIs_development_15 = reactIs_development.isConcurrentMode;
-  var reactIs_development_16 = reactIs_development.isContextConsumer;
-  var reactIs_development_17 = reactIs_development.isContextProvider;
-  var reactIs_development_18 = reactIs_development.isElement;
-  var reactIs_development_19 = reactIs_development.isForwardRef;
-  var reactIs_development_20 = reactIs_development.isFragment;
-  var reactIs_development_21 = reactIs_development.isLazy;
-  var reactIs_development_22 = reactIs_development.isMemo;
-  var reactIs_development_23 = reactIs_development.isPortal;
-  var reactIs_development_24 = reactIs_development.isProfiler;
-  var reactIs_development_25 = reactIs_development.isStrictMode;
-  var reactIs_development_26 = reactIs_development.isSuspense;
-  var reactIs_development_27 = reactIs_development.isValidElementType;
-  var reactIs_development_28 = reactIs_development.typeOf;
+
+  unwrapExports(reactIs_development);
+  var reactIs_development_1 = reactIs_development.typeOf;
+  var reactIs_development_2 = reactIs_development.AsyncMode;
+  var reactIs_development_3 = reactIs_development.ConcurrentMode;
+  var reactIs_development_4 = reactIs_development.ContextConsumer;
+  var reactIs_development_5 = reactIs_development.ContextProvider;
+  var reactIs_development_6 = reactIs_development.Element;
+  var reactIs_development_7 = reactIs_development.ForwardRef;
+  var reactIs_development_8 = reactIs_development.Fragment;
+  var reactIs_development_9 = reactIs_development.Lazy;
+  var reactIs_development_10 = reactIs_development.Memo;
+  var reactIs_development_11 = reactIs_development.Portal;
+  var reactIs_development_12 = reactIs_development.Profiler;
+  var reactIs_development_13 = reactIs_development.StrictMode;
+  var reactIs_development_14 = reactIs_development.Suspense;
+  var reactIs_development_15 = reactIs_development.isValidElementType;
+  var reactIs_development_16 = reactIs_development.isAsyncMode;
+  var reactIs_development_17 = reactIs_development.isConcurrentMode;
+  var reactIs_development_18 = reactIs_development.isContextConsumer;
+  var reactIs_development_19 = reactIs_development.isContextProvider;
+  var reactIs_development_20 = reactIs_development.isElement;
+  var reactIs_development_21 = reactIs_development.isForwardRef;
+  var reactIs_development_22 = reactIs_development.isFragment;
+  var reactIs_development_23 = reactIs_development.isLazy;
+  var reactIs_development_24 = reactIs_development.isMemo;
+  var reactIs_development_25 = reactIs_development.isPortal;
+  var reactIs_development_26 = reactIs_development.isProfiler;
+  var reactIs_development_27 = reactIs_development.isStrictMode;
+  var reactIs_development_28 = reactIs_development.isSuspense;
 
   var reactIs = createCommonjsModule(function (module) {
 
@@ -1814,13 +1914,7 @@
   }
   });
 
-  var ReactReduxContext =
-  /*#__PURE__*/
-  React__default.createContext(null);
-
-  {
-    ReactReduxContext.displayName = 'ReactRedux';
-  }
+  var ReactReduxContext = React__default.createContext(null);
 
   // Default to a dummy "batch" implementation that just runs the callback
   function defaultNoopBatch(callback) {
@@ -1840,69 +1934,42 @@
   // well as nesting subscriptions of descendant components, so that we can ensure the
   // ancestor components re-render before descendants
 
+  var CLEARED = null;
   var nullListeners = {
     notify: function notify() {}
   };
 
   function createListenerCollection() {
-    var batch = getBatch();
-    var first = null;
-    var last = null;
+    var batch = getBatch(); // the current/next pattern is copied from redux's createStore code.
+    // TODO: refactor+expose that code to be reusable here?
+
+    var current = [];
+    var next = [];
     return {
       clear: function clear() {
-        first = null;
-        last = null;
+        next = CLEARED;
+        current = CLEARED;
       },
       notify: function notify() {
+        var listeners = current = next;
         batch(function () {
-          var listener = first;
-
-          while (listener) {
-            listener.callback();
-            listener = listener.next;
+          for (var i = 0; i < listeners.length; i++) {
+            listeners[i]();
           }
         });
       },
       get: function get() {
-        var listeners = [];
-        var listener = first;
-
-        while (listener) {
-          listeners.push(listener);
-          listener = listener.next;
-        }
-
-        return listeners;
+        return next;
       },
-      subscribe: function subscribe(callback) {
+      subscribe: function subscribe(listener) {
         var isSubscribed = true;
-        var listener = last = {
-          callback: callback,
-          next: null,
-          prev: last
-        };
-
-        if (listener.prev) {
-          listener.prev.next = listener;
-        } else {
-          first = listener;
-        }
-
+        if (next === current) next = current.slice();
+        next.push(listener);
         return function unsubscribe() {
-          if (!isSubscribed || first === null) return;
+          if (!isSubscribed || current === CLEARED) return;
           isSubscribed = false;
-
-          if (listener.next) {
-            listener.next.prev = listener.prev;
-          } else {
-            last = listener.prev;
-          }
-
-          if (listener.prev) {
-            listener.prev.next = listener.next;
-          } else {
-            first = listener.next;
-          }
+          if (next === current) next = current.slice();
+          next.splice(next.indexOf(listener), 1);
         };
       }
     };
@@ -1993,17 +2060,15 @@
     }, children);
   }
 
-  {
-    Provider.propTypes = {
-      store: propTypes.shape({
-        subscribe: propTypes.func.isRequired,
-        dispatch: propTypes.func.isRequired,
-        getState: propTypes.func.isRequired
-      }),
-      context: propTypes.object,
-      children: propTypes.any
-    };
-  }
+  Provider.propTypes = {
+    store: propTypes.shape({
+      subscribe: propTypes.func.isRequired,
+      dispatch: propTypes.func.isRequired,
+      getState: propTypes.func.isRequired
+    }),
+    context: propTypes.object,
+    children: propTypes.any
+  };
 
   function _objectWithoutPropertiesLoose(source, excluded) {
     if (source == null) return {};
@@ -2120,6 +2185,43 @@
 
   var hoistNonReactStatics_cjs = hoistNonReactStatics;
 
+  /**
+   * Copyright (c) 2013-present, Facebook, Inc.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   */
+
+  var invariant$1 = function(condition, format, a, b, c, d, e, f) {
+    {
+      if (format === undefined) {
+        throw new Error('invariant requires an error message argument');
+      }
+    }
+
+    if (!condition) {
+      var error;
+      if (format === undefined) {
+        error = new Error(
+          'Minified exception occurred; use the non-minified dev environment ' +
+          'for the full error message and additional helpful warnings.'
+        );
+      } else {
+        var args = [a, b, c, d, e, f];
+        var argIndex = 0;
+        error = new Error(
+          format.replace(/%s/g, function() { return args[argIndex++]; })
+        );
+        error.name = 'Invariant Violation';
+      }
+
+      error.framesToPop = 1; // we don't care about invariant's own frame
+      throw error;
+    }
+  };
+
+  var invariant_1 = invariant$1;
+
   // To get around it, we can conditionally useEffect on the server (no-op) and
   // useLayoutEffect in the browser. We need useLayoutEffect to ensure the store
   // subscription callback always has the selector from the latest render commit
@@ -2128,7 +2230,8 @@
   // is created synchronously, otherwise a store update may occur before the
   // subscription is created and an inconsistent state may be observed
 
-  var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+  var isHopefullyDomEnvironment = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined';
+  var useIsomorphicLayoutEffect = isHopefullyDomEnvironment ? React.useLayoutEffect : React.useEffect;
 
   var EMPTY_ARRAY = [];
   var NO_SUBSCRIPTION_ARRAY = [null, null];
@@ -2144,102 +2247,6 @@
   function storeStateUpdatesReducer(state, action) {
     var updateCount = state[1];
     return [action.payload, updateCount + 1];
-  }
-
-  function useIsomorphicLayoutEffectWithArgs(effectFunc, effectArgs, dependencies) {
-    useIsomorphicLayoutEffect(function () {
-      return effectFunc.apply(void 0, effectArgs);
-    }, dependencies);
-  }
-
-  function captureWrapperProps(lastWrapperProps, lastChildProps, renderIsScheduled, wrapperProps, actualChildProps, childPropsFromStoreUpdate, notifyNestedSubs) {
-    // We want to capture the wrapper props and child props we used for later comparisons
-    lastWrapperProps.current = wrapperProps;
-    lastChildProps.current = actualChildProps;
-    renderIsScheduled.current = false; // If the render was from a store update, clear out that reference and cascade the subscriber update
-
-    if (childPropsFromStoreUpdate.current) {
-      childPropsFromStoreUpdate.current = null;
-      notifyNestedSubs();
-    }
-  }
-
-  function subscribeUpdates(shouldHandleStateChanges, store, subscription, childPropsSelector, lastWrapperProps, lastChildProps, renderIsScheduled, childPropsFromStoreUpdate, notifyNestedSubs, forceComponentUpdateDispatch) {
-    // If we're not subscribed to the store, nothing to do here
-    if (!shouldHandleStateChanges) return; // Capture values for checking if and when this component unmounts
-
-    var didUnsubscribe = false;
-    var lastThrownError = null; // We'll run this callback every time a store subscription update propagates to this component
-
-    var checkForUpdates = function checkForUpdates() {
-      if (didUnsubscribe) {
-        // Don't run stale listeners.
-        // Redux doesn't guarantee unsubscriptions happen until next dispatch.
-        return;
-      }
-
-      var latestStoreState = store.getState();
-      var newChildProps, error;
-
-      try {
-        // Actually run the selector with the most recent store state and wrapper props
-        // to determine what the child props should be
-        newChildProps = childPropsSelector(latestStoreState, lastWrapperProps.current);
-      } catch (e) {
-        error = e;
-        lastThrownError = e;
-      }
-
-      if (!error) {
-        lastThrownError = null;
-      } // If the child props haven't changed, nothing to do here - cascade the subscription update
-
-
-      if (newChildProps === lastChildProps.current) {
-        if (!renderIsScheduled.current) {
-          notifyNestedSubs();
-        }
-      } else {
-        // Save references to the new child props.  Note that we track the "child props from store update"
-        // as a ref instead of a useState/useReducer because we need a way to determine if that value has
-        // been processed.  If this went into useState/useReducer, we couldn't clear out the value without
-        // forcing another re-render, which we don't want.
-        lastChildProps.current = newChildProps;
-        childPropsFromStoreUpdate.current = newChildProps;
-        renderIsScheduled.current = true; // If the child props _did_ change (or we caught an error), this wrapper component needs to re-render
-
-        forceComponentUpdateDispatch({
-          type: 'STORE_UPDATED',
-          payload: {
-            error: error
-          }
-        });
-      }
-    }; // Actually subscribe to the nearest connected ancestor (or store)
-
-
-    subscription.onStateChange = checkForUpdates;
-    subscription.trySubscribe(); // Pull data from the store after first render in case the store has
-    // changed since we began.
-
-    checkForUpdates();
-
-    var unsubscribeWrapper = function unsubscribeWrapper() {
-      didUnsubscribe = true;
-      subscription.tryUnsubscribe();
-      subscription.onStateChange = null;
-
-      if (lastThrownError) {
-        // It's possible that we caught an error due to a bad mapState function, but the
-        // parent re-rendered without this component and we're about to unmount.
-        // This shouldn't happen as long as we do top-down subscriptions correctly, but
-        // if we ever do those wrong, this throw will surface the error in our tests.
-        // In that case, throw the error from here so it doesn't get lost.
-        throw lastThrownError;
-      }
-    };
-
-    return unsubscribeWrapper;
   }
 
   var initStateUpdates = function initStateUpdates() {
@@ -2288,26 +2295,14 @@
         context = _ref2$context === void 0 ? ReactReduxContext : _ref2$context,
         connectOptions = _objectWithoutPropertiesLoose(_ref2, ["getDisplayName", "methodName", "renderCountProp", "shouldHandleStateChanges", "storeKey", "withRef", "forwardRef", "context"]);
 
-    {
-      if (renderCountProp !== undefined) {
-        throw new Error("renderCountProp is removed. render counting is built into the latest React Dev Tools profiling extension");
-      }
-
-      if (withRef) {
-        throw new Error('withRef is removed. To access the wrapped instance, use a ref on the connected component');
-      }
-
-      var customStoreWarningMessage = 'To use a custom Redux store for specific components, create a custom React context with ' + "React.createContext(), and pass the context object to React Redux's Provider and specific components" + ' like: <Provider context={MyContext}><ConnectedComponent context={MyContext} /></Provider>. ' + 'You may also pass a {context : MyContext} option to connect';
-
-      if (storeKey !== 'store') {
-        throw new Error('storeKey has been removed and does not do anything. ' + customStoreWarningMessage);
-      }
-    }
-
+    invariant_1(renderCountProp === undefined, "renderCountProp is removed. render counting is built into the latest React Dev Tools profiling extension");
+    invariant_1(!withRef, 'withRef is removed. To access the wrapped instance, use a ref on the connected component');
+    var customStoreWarningMessage = 'To use a custom Redux store for specific components, create a custom React context with ' + "React.createContext(), and pass the context object to React Redux's Provider and specific components" + ' like: <Provider context={MyContext}><ConnectedComponent context={MyContext} /></Provider>. ' + 'You may also pass a {context : MyContext} option to connect';
+    invariant_1(storeKey === 'store', 'storeKey has been removed and does not do anything. ' + customStoreWarningMessage);
     var Context = context;
     return function wrapWithConnect(WrappedComponent) {
-      if ( !reactIs_1(WrappedComponent)) {
-        throw new Error("You must pass a component to the function returned by " + (methodName + ". Instead received " + stringifyComponent(WrappedComponent)));
+      {
+        invariant_1(reactIs_1(WrappedComponent), "You must pass a component to the function returned by " + (methodName + ". Instead received " + stringifyComponent(WrappedComponent)));
       }
 
       var wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
@@ -2342,13 +2337,13 @@
           // Distinguish between actual "data" props that were passed to the wrapper component,
           // and values needed to control behavior (forwarded refs, alternate context instances).
           // To maintain the wrapperProps object reference, memoize this destructuring.
-          var reactReduxForwardedRef = props.reactReduxForwardedRef,
-              wrapperProps = _objectWithoutPropertiesLoose(props, ["reactReduxForwardedRef"]);
+          var forwardedRef = props.forwardedRef,
+              wrapperProps = _objectWithoutPropertiesLoose(props, ["forwardedRef"]);
 
-          return [props.context, reactReduxForwardedRef, wrapperProps];
+          return [props.context, forwardedRef, wrapperProps];
         }, [props]),
             propsContext = _useMemo[0],
-            reactReduxForwardedRef = _useMemo[1],
+            forwardedRef = _useMemo[1],
             wrapperProps = _useMemo[2];
 
         var ContextToUse = React.useMemo(function () {
@@ -2363,11 +2358,7 @@
 
         var didStoreComeFromProps = Boolean(props.store) && Boolean(props.store.getState) && Boolean(props.store.dispatch);
         var didStoreComeFromContext = Boolean(contextValue) && Boolean(contextValue.store);
-
-        if ( !didStoreComeFromProps && !didStoreComeFromContext) {
-          throw new Error("Could not find \"store\" in the context of " + ("\"" + displayName + "\". Either wrap the root component in a <Provider>, ") + "or pass a custom React context provider to <Provider> and the corresponding " + ("React context consumer to " + displayName + " in connect options."));
-        } // Based on the previous check, one of these must be true
-
+        invariant_1(didStoreComeFromProps || didStoreComeFromContext, "Could not find \"store\" in the context of " + ("\"" + displayName + "\". Either wrap the root component in a <Provider>, ") + "or pass a custom React context provider to <Provider> and the corresponding " + ("React context consumer to " + displayName + " in connect options.")); // Based on the previous check, one of these must be true
 
         var store = didStoreComeFromProps ? props.store : contextValue.store;
         var childPropsSelector = React.useMemo(function () {
@@ -2444,16 +2435,102 @@
         // about useLayoutEffect in SSR, so we try to detect environment and fall back to
         // just useEffect instead to avoid the warning, since neither will run anyway.
 
-        useIsomorphicLayoutEffectWithArgs(captureWrapperProps, [lastWrapperProps, lastChildProps, renderIsScheduled, wrapperProps, actualChildProps, childPropsFromStoreUpdate, notifyNestedSubs]); // Our re-subscribe logic only runs when the store/subscription setup changes
+        useIsomorphicLayoutEffect(function () {
+          // We want to capture the wrapper props and child props we used for later comparisons
+          lastWrapperProps.current = wrapperProps;
+          lastChildProps.current = actualChildProps;
+          renderIsScheduled.current = false; // If the render was from a store update, clear out that reference and cascade the subscriber update
 
-        useIsomorphicLayoutEffectWithArgs(subscribeUpdates, [shouldHandleStateChanges, store, subscription, childPropsSelector, lastWrapperProps, lastChildProps, renderIsScheduled, childPropsFromStoreUpdate, notifyNestedSubs, forceComponentUpdateDispatch], [store, subscription, childPropsSelector]); // Now that all that's done, we can finally try to actually render the child component.
+          if (childPropsFromStoreUpdate.current) {
+            childPropsFromStoreUpdate.current = null;
+            notifyNestedSubs();
+          }
+        }); // Our re-subscribe logic only runs when the store/subscription setup changes
+
+        useIsomorphicLayoutEffect(function () {
+          // If we're not subscribed to the store, nothing to do here
+          if (!shouldHandleStateChanges) return; // Capture values for checking if and when this component unmounts
+
+          var didUnsubscribe = false;
+          var lastThrownError = null; // We'll run this callback every time a store subscription update propagates to this component
+
+          var checkForUpdates = function checkForUpdates() {
+            if (didUnsubscribe) {
+              // Don't run stale listeners.
+              // Redux doesn't guarantee unsubscriptions happen until next dispatch.
+              return;
+            }
+
+            var latestStoreState = store.getState();
+            var newChildProps, error;
+
+            try {
+              // Actually run the selector with the most recent store state and wrapper props
+              // to determine what the child props should be
+              newChildProps = childPropsSelector(latestStoreState, lastWrapperProps.current);
+            } catch (e) {
+              error = e;
+              lastThrownError = e;
+            }
+
+            if (!error) {
+              lastThrownError = null;
+            } // If the child props haven't changed, nothing to do here - cascade the subscription update
+
+
+            if (newChildProps === lastChildProps.current) {
+              if (!renderIsScheduled.current) {
+                notifyNestedSubs();
+              }
+            } else {
+              // Save references to the new child props.  Note that we track the "child props from store update"
+              // as a ref instead of a useState/useReducer because we need a way to determine if that value has
+              // been processed.  If this went into useState/useReducer, we couldn't clear out the value without
+              // forcing another re-render, which we don't want.
+              lastChildProps.current = newChildProps;
+              childPropsFromStoreUpdate.current = newChildProps;
+              renderIsScheduled.current = true; // If the child props _did_ change (or we caught an error), this wrapper component needs to re-render
+
+              forceComponentUpdateDispatch({
+                type: 'STORE_UPDATED',
+                payload: {
+                  error: error
+                }
+              });
+            }
+          }; // Actually subscribe to the nearest connected ancestor (or store)
+
+
+          subscription.onStateChange = checkForUpdates;
+          subscription.trySubscribe(); // Pull data from the store after first render in case the store has
+          // changed since we began.
+
+          checkForUpdates();
+
+          var unsubscribeWrapper = function unsubscribeWrapper() {
+            didUnsubscribe = true;
+            subscription.tryUnsubscribe();
+            subscription.onStateChange = null;
+
+            if (lastThrownError) {
+              // It's possible that we caught an error due to a bad mapState function, but the
+              // parent re-rendered without this component and we're about to unmount.
+              // This shouldn't happen as long as we do top-down subscriptions correctly, but
+              // if we ever do those wrong, this throw will surface the error in our tests.
+              // In that case, throw the error from here so it doesn't get lost.
+              throw lastThrownError;
+            }
+          };
+
+          return unsubscribeWrapper;
+        }, [store, subscription, childPropsSelector]); // Now that all that's done, we can finally try to actually render the child component.
         // We memoize the elements for the rendered child component as an optimization.
 
         var renderedWrappedComponent = React.useMemo(function () {
           return React__default.createElement(WrappedComponent, _extends({}, actualChildProps, {
-            ref: reactReduxForwardedRef
+            ref: forwardedRef
           }));
-        }, [reactReduxForwardedRef, WrappedComponent, actualChildProps]); // If React sees the exact same element reference as last time, it bails out of re-rendering
+        }, [forwardedRef, WrappedComponent, actualChildProps]); // If React sees the exact same element reference as last time, it bails out of re-rendering
         // that child, same as if it was wrapped in React.memo() or returned false from shouldComponentUpdate.
 
         var renderedChild = React.useMemo(function () {
@@ -2479,7 +2556,7 @@
       if (forwardRef) {
         var forwarded = React__default.forwardRef(function forwardConnectRef(props, ref) {
           return React__default.createElement(Connect, _extends({}, props, {
-            reactReduxForwardedRef: ref
+            forwardedRef: ref
           }));
         });
         forwarded.displayName = displayName;
@@ -2490,6 +2567,8 @@
       return hoistNonReactStatics_cjs(Connect, WrappedComponent);
     };
   }
+
+  var hasOwn = Object.prototype.hasOwnProperty;
 
   function is(x, y) {
     if (x === y) {
@@ -2511,7 +2590,7 @@
     if (keysA.length !== keysB.length) return false;
 
     for (var i = 0; i < keysA.length; i++) {
-      if (!Object.prototype.hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      if (!hasOwn.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
         return false;
       }
     }
@@ -2884,8 +2963,7 @@
       }, extraOptions));
     };
   }
-  var connect = /*#__PURE__*/
-  createConnect();
+  var connect = createConnect();
 
   setBatch(ReactDOM.unstable_batchedUpdates);
 
@@ -2981,7 +3059,7 @@
   };
 
   var prefix$1 = 'Invariant failed';
-  function invariant$1(condition, message) {
+  function invariant$2(condition, message) {
       if (condition) {
           return;
       }
@@ -3074,7 +3152,7 @@
     }
 
     var result = Number(value);
-    !!isNaN(result) ?  invariant$1(false, "Could not parse value [raw: " + raw + ", without suffix: " + value + "]")  : void 0;
+    !!isNaN(result) ?  invariant$2(false, "Could not parse value [raw: " + raw + ", without suffix: " + value + "]")  : void 0;
     return result;
   };
 
@@ -5297,7 +5375,7 @@
       return scrolled;
     });
 
-    var droppables = _extends({}, state.dimensions.droppables, toDroppableMap(withScrollChange));
+    var droppables = _extends({}, state.dimensions.droppables, {}, toDroppableMap(withScrollChange));
 
     var updatedAdditions = toDraggableMap(adjustAdditionsForScrollChanges({
       additions: published.additions,
@@ -5305,7 +5383,7 @@
       viewport: state.viewport
     }));
 
-    var draggables = _extends({}, state.dimensions.draggables, updatedAdditions);
+    var draggables = _extends({}, state.dimensions.draggables, {}, updatedAdditions);
 
     published.removals.forEach(function (id) {
       delete draggables[id];
@@ -8333,8 +8411,8 @@
   var AppContext = React__default.createContext(null);
 
   var peerDependencies = {
-  	react: "^16.8.5",
-  	"react-dom": "^16.8.5"
+  	react: "^17.0.0-rc.2",
+  	"react-dom": "^17.0.0-rc.2"
   };
 
   var semver = /(\d+)\.(\d+)\.(\d+)/;
