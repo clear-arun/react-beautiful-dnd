@@ -3321,6 +3321,8 @@ var getWindowScroll = (function () {
 });
 
 function getWindowScrollBinding(update) {
+  var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
+  var documentElement = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
   return {
     eventName: 'scroll',
     options: {
@@ -3328,7 +3330,7 @@ function getWindowScrollBinding(update) {
       capture: false
     },
     fn: function fn(event) {
-      if (event.target !== window && event.target !== window.document) {
+      if (event.target !== window && event.target !== documentElement) {
         return;
       }
 
