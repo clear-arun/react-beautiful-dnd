@@ -4968,14 +4968,9 @@ var getStyles$1 = (function (contextId) {
 var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
 var getHead = function getHead() {
-  if (!window.DND_DOC_HEAD_EL) {
-    var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-    var head = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.querySelector('head');
-    window.DND_DOC_HEAD_EL = head;
-  }
-
-  !window.DND_DOC_HEAD_EL ? process.env.NODE_ENV !== "production" ? invariant(false, 'Cannot find the head to append a style to') : invariant(false) : void 0;
-  return window.DND_DOC_HEAD_EL;
+  var head = window.dnd_active_shadow_root || document.querySelector('head');
+  !head ? process.env.NODE_ENV !== "production" ? invariant(false, 'Cannot find the head to append a style to') : invariant(false) : void 0;
+  return head;
 };
 
 var createStyleEl = function createStyleEl(nonce) {
