@@ -228,18 +228,11 @@ const mapDispatchToProps: DispatchProps = {
 };
 
 function getBody(): HTMLElement {
-  if (!window.DND_DOC_BODY_EL) {
-    const domNodeWithShadow: Element = document.querySelector(
-      '[data-has-shadow-root="true"]',
-    );
-    const body: ?HTMLBodyElement | ?DocumentFragment = domNodeWithShadow
-      ? domNodeWithShadow.shadowRoot
-      : document.body;
-    window.DND_DOC_BODY_EL = body;
-  }
+  const body: ?HTMLBodyElement | ?DocumentFragment =
+    window.dnd_active_shadow_root || document.body;
 
-  invariant(window.DND_DOC_BODY_EL, 'document.body is not ready');
-  return window.DND_DOC_BODY_EL;
+  invariant(body, 'document.body is not ready');
+  return body;
 }
 
 const defaultProps = ({

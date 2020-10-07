@@ -26,16 +26,7 @@ export const primaryButton: number = 0;
 export const sloppyClickThreshold: number = 5;
 
 function getWindowOrShadowRoot(): Window | DocumentFragment {
-  if (!window.DND_DOC_WINDOW_EL) {
-    const domNodeWithShadow: Element = document.querySelector(
-      '[data-has-shadow-root="true"]',
-    );
-    const windowEl: ?Window | ?DocumentFragment = domNodeWithShadow
-      ? domNodeWithShadow.shadowRoot
-      : window;
-    window.DND_DOC_WINDOW_EL = windowEl;
-  }
-  return window.DND_DOC_WINDOW_EL;
+  return window.dnd_active_shadow_root || window;
 }
 
 function isSloppyClickThresholdExceeded(
