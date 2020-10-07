@@ -6286,12 +6286,7 @@
   });
 
   function getWindowScrollBinding(update) {
-    if (!window.DND_DOC_DOCUMENT_EL) {
-      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-      var documentElement = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
-      window.DND_DOC_DOCUMENT_EL = documentElement;
-    }
-
+    var documentElement = window.dnd_active_shadow_root || document;
     return {
       eventName: 'scroll',
       options: {
@@ -6299,7 +6294,7 @@
         capture: false
       },
       fn: function fn(event) {
-        if (event.target !== window && event.target !== window.DND_DOC_DOCUMENT_EL) {
+        if (event.target !== window && event.target !== documentElement) {
           return;
         }
 
@@ -8032,14 +8027,9 @@
   }
 
   function findDragHandle(contextId, draggableId) {
-    if (!window.DND_DOC_DOCUMENT_EL) {
-      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-      var baseDocument = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
-      window.DND_DOC_DOCUMENT_EL = baseDocument;
-    }
-
+    var documentElement = window.dnd_active_shadow_root || document;
     var selector = "[" + dragHandle.contextId + "=\"" + contextId + "\"]";
-    var possible = toArray(window.DND_DOC_DOCUMENT_EL.querySelectorAll(selector));
+    var possible = toArray(documentElement.querySelectorAll(selector));
 
     if (!possible.length) {
        warning("Unable to find any drag handles in the context \"" + contextId + "\"") ;
@@ -8306,14 +8296,9 @@
   var StoreContext = React__default.createContext(null);
 
   var getBodyElement = (function () {
-    if (!window.DND_DOC_BODY_EL) {
-      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-      var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
-      window.DND_DOC_BODY_EL = body;
-    }
-
-    !window.DND_DOC_BODY_EL ?  invariant(false, 'Cannot find document.body')  : void 0;
-    return window.DND_DOC_BODY_EL;
+    var body = window.dnd_active_shadow_root || document.body;
+    !body ?  invariant(false, 'Cannot find document.body')  : void 0;
+    return body;
   });
 
   var visuallyHidden = {
@@ -8609,13 +8594,7 @@
   var sloppyClickThreshold = 5;
 
   function getWindowOrShadowRoot() {
-    if (!window.DND_DOC_WINDOW_EL) {
-      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-      var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
-      window.DND_DOC_WINDOW_EL = windowEl;
-    }
-
-    return window.DND_DOC_WINDOW_EL;
+    return window.dnd_active_shadow_root || window;
   }
 
   function isSloppyClickThresholdExceeded(original, current) {
@@ -8976,13 +8955,7 @@
   }
 
   function getWindowOrShadowRoot$1() {
-    if (!window.DND_DOC_WINDOW_EL) {
-      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-      var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
-      window.DND_DOC_WINDOW_EL = windowEl;
-    }
-
-    return window.DND_DOC_WINDOW_EL;
+    return window.dnd_active_shadow_root || window;
   }
 
   function useKeyboardSensor(api) {
@@ -9188,13 +9161,7 @@
   }
 
   function getWindowOrShadowRoot$2() {
-    if (!window.DND_DOC_WINDOW_EL) {
-      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-      var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
-      window.DND_DOC_WINDOW_EL = windowEl;
-    }
-
-    return window.DND_DOC_WINDOW_EL;
+    return window.dnd_active_shadow_root || window;
   }
 
   function useMouseSensor$1(api) {
@@ -9475,14 +9442,9 @@
   }
 
   function findDraggable(contextId, draggableId) {
-    if (!window.DND_DOC_DOCUMENT_EL) {
-      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-      var baseDocument = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document;
-      window.DND_DOC_DOCUMENT_EL = baseDocument;
-    }
-
+    var documentElement = window.dnd_active_shadow_root || document;
     var selector = "[" + draggable.contextId + "=\"" + contextId + "\"]";
-    var possible = toArray(window.DND_DOC_DOCUMENT_EL.querySelectorAll(selector));
+    var possible = toArray(documentElement.querySelectorAll(selector));
     var draggable$1 = find(possible, function (el) {
       return el.getAttribute(draggable.id) === draggableId;
     });
@@ -9610,13 +9572,7 @@
     }
 
     function getWindowOrShadowRoot() {
-      if (!window.DND_DOC_WINDOW_EL) {
-        var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-        var windowEl = domNodeWithShadow ? domNodeWithShadow.shadowRoot : window;
-        window.DND_DOC_WINDOW_EL = windowEl;
-      }
-
-      return window.DND_DOC_WINDOW_EL;
+      return window.dnd_active_shadow_root || window;
     }
 
     var tryDispatchWhenDragging = tryDispatch.bind(null, 'DRAGGING');
@@ -11519,14 +11475,9 @@
   };
 
   function getBody() {
-    if (!window.DND_DOC_BODY_EL) {
-      var domNodeWithShadow = document.querySelector('[data-has-shadow-root="true"]');
-      var body = domNodeWithShadow ? domNodeWithShadow.shadowRoot : document.body;
-      window.DND_DOC_BODY_EL = body;
-    }
-
-    !window.DND_DOC_BODY_EL ?  invariant(false, 'document.body is not ready')  : void 0;
-    return window.DND_DOC_BODY_EL;
+    var body = window.dnd_active_shadow_root || document.body;
+    !body ?  invariant(false, 'document.body is not ready')  : void 0;
+    return body;
   }
 
   var defaultProps = {
