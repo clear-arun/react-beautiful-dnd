@@ -6286,6 +6286,7 @@
   });
 
   function getWindowScrollBinding(update) {
+    var documentElement = window.dnd_active_shadow_root || document;
     return {
       eventName: 'scroll',
       options: {
@@ -6293,7 +6294,7 @@
         capture: false
       },
       fn: function fn(event) {
-        if (event.target !== window && event.target !== window.document) {
+        if (event.target !== window && event.target !== documentElement) {
           return;
         }
 
@@ -7928,7 +7929,7 @@
   var useIsomorphicLayoutEffect$1 = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
   var getHead = function getHead() {
-    var head = document.querySelector('head');
+    var head = window.dnd_active_shadow_root || document.querySelector('head');
     !head ?  invariant(false, 'Cannot find the head to append a style to')  : void 0;
     return head;
   };
@@ -8021,8 +8022,9 @@
   }
 
   function findDragHandle(contextId, draggableId) {
+    var documentElement = window.dnd_active_shadow_root || document;
     var selector = "[" + dragHandle.contextId + "=\"" + contextId + "\"]";
-    var possible = toArray(document.querySelectorAll(selector));
+    var possible = toArray(documentElement.querySelectorAll(selector));
 
     if (!possible.length) {
        warning("Unable to find any drag handles in the context \"" + contextId + "\"") ;
@@ -8068,8 +8070,9 @@
     }, []);
     var tryGiveFocus = useCallback(function tryGiveFocus(tryGiveFocusTo) {
       var handle = findDragHandle(contextId, tryGiveFocusTo);
+      var currentActiveElement = document.activeElement && document.activeElement.shadowRoot ? document.activeElement.shadowRoot.activeElement : document.activeElement;
 
-      if (handle && handle !== document.activeElement) {
+      if (handle && handle !== currentActiveElement) {
         handle.focus();
       }
     }, [contextId]);
@@ -8288,7 +8291,7 @@
   var StoreContext = React__default.createContext(null);
 
   var getBodyElement = (function () {
-    var body = document.body;
+    var body = window.dnd_active_shadow_root || document.body;
     !body ?  invariant(false, 'Cannot find document.body')  : void 0;
     return body;
   });
@@ -8404,8 +8407,8 @@
   var AppContext = React__default.createContext(null);
 
   var peerDependencies = {
-  	react: "^16.8.5",
-  	"react-dom": "^16.8.5"
+  	react: "^17.0.0-rc.2",
+  	"react-dom": "^17.0.0-rc.2"
   };
 
   var semver = /(\d+)\.(\d+)\.(\d+)/;
@@ -8584,6 +8587,10 @@
 
   var primaryButton = 0;
   var sloppyClickThreshold = 5;
+
+  function getWindowOrShadowRoot() {
+    return window.dnd_active_shadow_root || window;
+  }
 
   function isSloppyClickThresholdExceeded(original, current) {
     return Math.abs(current.x - original.x) >= sloppyClickThreshold || Math.abs(current.y - original.y) >= sloppyClickThreshold;
@@ -8791,7 +8798,7 @@
         passive: false,
         capture: true
       };
-      unbindEventsRef.current = bindEvents(window, [preventForcePressBinding, startCaptureBinding], options);
+      unbindEventsRef.current = bindEvents(getWindowOrShadowRoot(), [preventForcePressBinding, startCaptureBinding], options);
     }, [preventForcePressBinding, startCaptureBinding]);
     var stop = useCallback(function () {
       var current = phaseRef.current;
@@ -8833,7 +8840,7 @@
           phaseRef.current = phase;
         }
       });
-      unbindEventsRef.current = bindEvents(window, bindings, options);
+      unbindEventsRef.current = bindEvents(getWindowOrShadowRoot(), bindings, options);
     }, [cancel, stop]);
     var startPendingDrag = useCallback(function startPendingDrag(actions, point) {
       !(phaseRef.current.type === 'IDLE') ?  invariant(false, 'Expected to move from IDLE to PENDING drag')  : void 0;
@@ -8942,6 +8949,10 @@
     }];
   }
 
+  function getWindowOrShadowRoot$1() {
+    return window.dnd_active_shadow_root || window;
+  }
+
   function useKeyboardSensor(api) {
     var unbindEventsRef = React.useRef(noop$1);
     var startCaptureBinding = useMemo(function () {
@@ -8982,7 +8993,7 @@
             listenForCapture();
           }
 
-          unbindEventsRef.current = bindEvents(window, getDraggingBindings(actions, stop), {
+          unbindEventsRef.current = bindEvents(getWindowOrShadowRoot$1(), getDraggingBindings(actions, stop), {
             capture: true,
             passive: false
           });
@@ -8994,7 +9005,7 @@
         passive: false,
         capture: true
       };
-      unbindEventsRef.current = bindEvents(window, [startCaptureBinding], options);
+      unbindEventsRef.current = bindEvents(getWindowOrShadowRoot$1(), [startCaptureBinding], options);
     }, [startCaptureBinding]);
     useIsomorphicLayoutEffect$1(function mount() {
       listenForCapture();
@@ -9144,6 +9155,10 @@
     }];
   }
 
+  function getWindowOrShadowRoot$2() {
+    return window.dnd_active_shadow_root || window;
+  }
+
   function useMouseSensor$1(api) {
     var phaseRef = React.useRef(idle$2);
     var unbindEventsRef = React.useRef(noop);
@@ -9192,7 +9207,7 @@
         capture: true,
         passive: false
       };
-      unbindEventsRef.current = bindEvents(window, [startCaptureBinding], options);
+      unbindEventsRef.current = bindEvents(getWindowOrShadowRoot$2(), [startCaptureBinding], options);
     }, [startCaptureBinding]);
     var stop = useCallback(function () {
       var current = phaseRef.current;
@@ -9233,7 +9248,7 @@
         completed: stop,
         getPhase: getPhase
       };
-      var unbindTarget = bindEvents(window, getHandleBindings(args), options);
+      var unbindTarget = bindEvents(getWindowOrShadowRoot$2(), getHandleBindings(args), options);
       var unbindWindow = bindEvents(window, getWindowBindings(args), options);
 
       unbindEventsRef.current = function unbindAll() {
@@ -9275,7 +9290,7 @@
       };
     }, [getPhase, listenForCapture, setPhase]);
     useIsomorphicLayoutEffect$1(function webkitHack() {
-      var unbind = bindEvents(window, [{
+      var unbind = bindEvents(getWindowOrShadowRoot$2(), [{
         eventName: 'touchmove',
         fn: function fn() {},
         options: {
@@ -9422,8 +9437,9 @@
   }
 
   function findDraggable(contextId, draggableId) {
+    var documentElement = window.dnd_active_shadow_root || document;
     var selector = "[" + draggable.contextId + "=\"" + contextId + "\"]";
-    var possible = toArray(document.querySelectorAll(selector));
+    var possible = toArray(documentElement.querySelectorAll(selector));
     var draggable$1 = find(possible, function (el) {
       return el.getAttribute(draggable.id) === draggableId;
     });
@@ -9550,6 +9566,10 @@
       }
     }
 
+    function getWindowOrShadowRoot() {
+      return window.dnd_active_shadow_root || window;
+    }
+
     var tryDispatchWhenDragging = tryDispatch.bind(null, 'DRAGGING');
 
     function lift$1(args) {
@@ -9576,7 +9596,7 @@
         args.cleanup();
 
         if (options.shouldBlockNextClick) {
-          var unbind = bindEvents(window, [{
+          var unbind = bindEvents(getWindowOrShadowRoot(), [{
             eventName: 'click',
             fn: preventDefault,
             options: {
@@ -11450,8 +11470,9 @@
   };
 
   function getBody() {
-    !document.body ?  invariant(false, 'document.body is not ready')  : void 0;
-    return document.body;
+    var body = window.dnd_active_shadow_root || document.body;
+    !body ?  invariant(false, 'document.body is not ready')  : void 0;
+    return body;
   }
 
   var defaultProps = {

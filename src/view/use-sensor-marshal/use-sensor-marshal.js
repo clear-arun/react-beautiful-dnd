@@ -207,6 +207,10 @@ function tryStart({
     }
   }
 
+  function getWindowOrShadowRoot(): Window | DocumentFragment {
+    return window.dnd_active_shadow_root || window;
+  }
+
   const tryDispatchWhenDragging = tryDispatch.bind(null, 'DRAGGING');
 
   type LiftArgs = {|
@@ -239,7 +243,7 @@ function tryStart({
 
       // block next click if requested
       if (options.shouldBlockNextClick) {
-        const unbind = bindEvents(window, [
+        const unbind = bindEvents(getWindowOrShadowRoot(), [
           {
             eventName: 'click',
             fn: preventDefault,

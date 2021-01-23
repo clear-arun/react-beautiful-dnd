@@ -243,6 +243,10 @@ function getHandleBindings({
   ];
 }
 
+function getWindowOrShadowRoot(): Window | DocumentFragment {
+  return window.dnd_active_shadow_root || window;
+}
+
 export default function useMouseSensor(api: SensorAPI) {
   const phaseRef = useRef<Phase>(idle);
   const unbindEventsRef = useRef<() => void>(noop);
@@ -313,7 +317,7 @@ export default function useMouseSensor(api: SensorAPI) {
       };
 
       unbindEventsRef.current = bindEvents(
-        window,
+        getWindowOrShadowRoot(),
         [startCaptureBinding],
         options,
       );
@@ -366,7 +370,11 @@ export default function useMouseSensor(api: SensorAPI) {
       // Old behaviour:
       // https://gist.github.com/parris/dda613e3ae78f14eb2dc9fa0f4bfce3d
       // https://stackoverflow.com/questions/33298828/touch-move-event-dont-fire-after-touch-start-target-is-removed
-      const unbindTarget = bindEvents(window, getHandleBindings(args), options);
+      const unbindTarget = bindEvents(
+        getWindowOrShadowRoot(),
+        getHandleBindings(args),
+        options,
+      );
       const unbindWindow = bindEvents(window, getWindowBindings(args), options);
 
       unbindEventsRef.current = function unbindAll() {
@@ -445,7 +453,7 @@ export default function useMouseSensor(api: SensorAPI) {
   // touchmove event handlers to actually work
   // https://github.com/atlassian/react-beautiful-dnd/issues/1374
   useLayoutEffect(function webkitHack() {
-    const unbind = bindEvents(window, [
+    const unbind = bindEvents(getWindowOrShadowRoot(), [
       {
         eventName: 'touchmove',
         // using a new noop function for each usage as a single `removeEventListener()`

@@ -25,6 +25,10 @@ import { noop } from '../../../empty';
 export const primaryButton: number = 0;
 export const sloppyClickThreshold: number = 5;
 
+function getWindowOrShadowRoot(): Window | DocumentFragment {
+  return window.dnd_active_shadow_root || window;
+}
+
 function isSloppyClickThresholdExceeded(
   original: Position,
   current: Position,
@@ -308,7 +312,7 @@ export default function useMouseSensor(api: SensorAPI) {
       };
 
       unbindEventsRef.current = bindEvents(
-        window,
+        getWindowOrShadowRoot(),
         [preventForcePressBinding, startCaptureBinding],
         options,
       );
@@ -351,7 +355,11 @@ export default function useMouseSensor(api: SensorAPI) {
         },
       });
 
-      unbindEventsRef.current = bindEvents(window, bindings, options);
+      unbindEventsRef.current = bindEvents(
+        getWindowOrShadowRoot(),
+        bindings,
+        options,
+      );
     },
     [cancel, stop],
   );

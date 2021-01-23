@@ -43,8 +43,12 @@ export default function useFocusMarshal(contextId: ContextId): FocusMarshal {
   const tryGiveFocus = useCallback(
     function tryGiveFocus(tryGiveFocusTo: DraggableId) {
       const handle: ?HTMLElement = findDragHandle(contextId, tryGiveFocusTo);
+      const currentActiveElement: ?HTMLElement =
+        document.activeElement && document.activeElement.shadowRoot
+          ? document.activeElement.shadowRoot.activeElement
+          : document.activeElement;
 
-      if (handle && handle !== document.activeElement) {
+      if (handle && handle !== currentActiveElement) {
         handle.focus();
       }
     },

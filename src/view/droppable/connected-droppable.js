@@ -228,8 +228,11 @@ const mapDispatchToProps: DispatchProps = {
 };
 
 function getBody(): HTMLElement {
-  invariant(document.body, 'document.body is not ready');
-  return document.body;
+  const body: ?HTMLBodyElement | ?DocumentFragment =
+    window.dnd_active_shadow_root || document.body;
+
+  invariant(body, 'document.body is not ready');
+  return body;
 }
 
 const defaultProps = ({

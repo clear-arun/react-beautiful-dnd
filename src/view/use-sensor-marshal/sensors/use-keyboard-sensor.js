@@ -138,6 +138,10 @@ function getDraggingBindings(
   ];
 }
 
+function getWindowOrShadowRoot(): Window | DocumentFragment {
+  return window.dnd_active_shadow_root || window;
+}
+
 export default function useKeyboardSensor(api: SensorAPI) {
   const unbindEventsRef = useRef<() => void>(noop);
 
@@ -202,7 +206,7 @@ export default function useKeyboardSensor(api: SensorAPI) {
 
         // bind dragging listeners
         unbindEventsRef.current = bindEvents(
-          window,
+          getWindowOrShadowRoot(),
           getDraggingBindings(actions, stop),
           { capture: true, passive: false },
         );
@@ -221,7 +225,7 @@ export default function useKeyboardSensor(api: SensorAPI) {
       };
 
       unbindEventsRef.current = bindEvents(
-        window,
+        getWindowOrShadowRoot(),
         [startCaptureBinding],
         options,
       );

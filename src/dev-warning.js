@@ -36,9 +36,9 @@ const isDisabledFlag: string = '__react-beautiful-dnd-disable-dev-warnings';
 
 export function log(type: 'error' | 'warn', message: string) {
   // no warnings in production
-  if (isProduction) {
-    return;
-  }
+  // if (isProduction) {
+  //   return;
+  // }
 
   // manual opt out of warnings
   if (typeof window !== 'undefined' && window[isDisabledFlag]) {
